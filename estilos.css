@@ -1,1 +1,201 @@
+/* Paleta de colores pastel en tonos rosados */
+:root {
+    --bg-color: #fce4ec; /* Fondo principal (Rosa muy claro) */
+    --card-bg-color: #f8bbd0; /* Fondo de los ramos (Rosa claro) */
+    --card-hover-color: #f48fb1; /* Fondo al pasar el mouse (Rosa intermedio) */
+    --text-color: #4a148c; /* Color del texto (Morado oscuro) */
+    --header-bg-color: #e91e63; /* Fondo del encabezado (Rosa fuerte) */
+    --approved-bg-color: #c8e6c9; /* Fondo de ramo aprobado (Verde pastel) */
+    --approved-text-color: #1b5e20; /* Color de texto aprobado (Verde oscuro) */
+    --locked-bg-color: #ffcdd2; /* Fondo de ramo bloqueado (Rojo pastel) */
+    --locked-text-color: #c62828; /* Color de texto bloqueado (Rojo oscuro) */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
 
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: var(--header-bg-color);
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+.header p {
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+.curriculum-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+/* Estilos de las columnas de semestre */
+.semester {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    flex: 1 1 250px;
+    max-width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.semester:hover {
+    transform: translateY(-5px);
+}
+
+.semester-title {
+    color: var(--header-bg-color);
+    border-bottom: 2px solid var(--header-bg-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.course-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilos de los ramos (tarjetas) */
+.course-card {
+    background-color: var(--card-bg-color);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.course-card:hover:not(.approved):not(.locked) {
+    background-color: var(--card-hover-color);
+    transform: scale(1.03);
+}
+
+.course-card h3 {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+/* Estado: APROBADO */
+.course-card.approved {
+    background-color: var(--approved-bg-color);
+    color: var(--approved-text-color);
+    text-decoration: line-through;
+    cursor: default;
+    border: 2px solid var(--approved-text-color);
+}
+
+/* Estado: BLOQUEADO (no se puede aprobar) */
+.course-card.locked {
+    background-color: var(--locked-bg-color);
+    color: var(--locked-text-color);
+    cursor: not-allowed;
+    position: relative;
+    border: 2px dashed var(--locked-text-color);
+}
+
+.course-card.locked::before {
+    content: '🚫';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.2em;
+}
+
+/* Estilos del modal de aviso */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    position: relative;
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    background-color: var(--header-bg-color);
+    margin-top: auto;
+    box-shadow: 0 -2px 4px var(--shadow-color);
+}
+
+/* Adaptación a dispositivos móviles */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.8em;
+    }
+    .semester {
+        flex: 1 1 100%;
+    }
+}
